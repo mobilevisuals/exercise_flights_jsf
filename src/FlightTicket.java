@@ -1,11 +1,16 @@
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
-@ManagedBean
-public class FlightTicket {
+@Named
+@RequestScoped
+public class FlightTicket implements Serializable {
 
     private String firstName;
     private String lastName;
@@ -17,9 +22,6 @@ public class FlightTicket {
 
     //	CONSTRUCTOR
     public FlightTicket(){
-
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Managed Bean Initialized", null);
-        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
 
         firstName = "First name";
         lastName = "Last name";
@@ -88,18 +90,6 @@ public class FlightTicket {
         return travelClassOptions;
     }
 
-    public void newMessage()
-    {
-        if (getFirstName().equalsIgnoreCase("solna")){
-            FacesMessage javaTextMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Good Job, that is the correct answer!", null);
-            FacesContext.getCurrentInstance().addMessage("guessForm:gText", javaTextMsg);
-        } else {
-            FacesMessage javaTextMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Sorry, that is NOT the correct answer!", null);
-            //lägger i meddelandet i nestade gText, som finna i formuläret guessForm
-            FacesContext.getCurrentInstance().addMessage("guessForm:gText", javaTextMsg);
-        }
-    }
+
 
 }
